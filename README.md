@@ -1,2 +1,2 @@
 # Rect-calculater
-Simple react project with JS and CSS
+Simple front end react project with JS and CSS, chosen to practise debugging and figurng out edge cases.
