@@ -10,7 +10,7 @@ export const ACTIONS = {
   DELETE_DIGIT: 'delete-digit',
   EVALUATE: 'evaluate',
 }
-
+///TODO: Move reducer into its own file
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
