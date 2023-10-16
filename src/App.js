@@ -136,7 +136,7 @@ function App() {
   )
 
   return (
-    <div className="caculator-grid">
+    <div className="calculator-grid">
       <div className="output">
         <div className="previous-operand">
           {previousOperand} {operation}
@@ -170,7 +170,7 @@ function App() {
       <DigitButton digit="0" dispatch={dispatch} />
 
       <button
-        clasName="span-two"
+        className="span-two"
         onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
       >
         =
