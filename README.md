@@ -1,5 +1,5 @@
 # Rect-calculater
-Simple react project with JS and CSS
+Simple react project with JS, CSS and Redux
 
 # Troubleshooting
 
