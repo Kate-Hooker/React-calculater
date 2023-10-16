@@ -10,7 +10,7 @@ export const ACTIONS = {
   DELETE_DIGIT: 'delete-digit',
   EVALUATE: 'evaluate',
 }
-
+///TODO: Move reducer into its own file
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
@@ -50,7 +50,7 @@ function reducer(state, { type, payload }) {
 
       return {
         ...state,
-        surrentOperand: state.currentOperand.slice(0, -1),
+        currentOperand: state.currentOperand.slice(0, -1),
       }
     case ACTIONS.CHOOSE_OPERATION:
       if (state.currentOperand == null && state.previousOperand == null) {
@@ -60,7 +60,7 @@ function reducer(state, { type, payload }) {
       if (state.currentOperand == null) {
         return {
           ...state,
-          operantion: payload.operation,
+          operation: payload.operation,
         }
       }
 
@@ -68,7 +68,7 @@ function reducer(state, { type, payload }) {
         return {
           ...state,
           operation: payload.operation,
-          previousOperand: state.cureentOperand,
+          previousOperand: state.currentOperand,
           currentOperand: null,
         }
       }
@@ -76,7 +76,7 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         previousOperand: evaluate(state),
-        opeartion: payload.operation,
+        operation: payload.operation,
         currentOperand: null,
       }
 
@@ -86,7 +86,7 @@ function reducer(state, { type, payload }) {
     case ACTIONS.EVALUATE:
       if (
         state.operation == null ||
-        state.operand == null ||
+        state.currentOperand == null ||
         state.previousOperand == null
       ) {
         return state
@@ -123,10 +123,11 @@ function evaluate({ currentOperand, previousOperand, operation }) {
   return computation.toString()
 }
 
-const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", { maximumFractionDigits: 0,})
+/* const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", { maximumFractionDigits: 0,})
 function formatOperand(operand) {
-  if (operand = null)
-}
+  if (operand == null) { return ''}
+  return INTEGER_FORMATTER.format(parseFloat(operand))
+} */
 
 function App() {
   const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
@@ -135,7 +136,7 @@ function App() {
   )
 
   return (
-    <div className="caculator-grid">
+    <div className="calculator-grid">
       <div className="output">
         <div className="previous-operand">
           {previousOperand} {operation}
@@ -148,7 +149,7 @@ function App() {
       >
         AC
       </button>
-      <button onClick={() => dispatch({ type: ACTIONS.DELET_DIGIT })}>
+      <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>
         DEL
       </button>
       <OperationButton operation="%" dispatch={dispatch} />
@@ -169,7 +170,7 @@ function App() {
       <DigitButton digit="0" dispatch={dispatch} />
 
       <button
-        clasName="span-two"
+        className="span-two"
         onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
       >
         =
